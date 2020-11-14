@@ -23,7 +23,3 @@ console.log(decodePtbkResponse(encodePtbkResponse(data)));
 ---
 
 > Author: saber2pr
-
-# dev
-
-发布时，把build下的
