@@ -81,7 +81,7 @@ export class Ptbk {
     return this.encodePtbk([privateUniqid, publicUniqid]);
   };
 
-  public encodePtbkResponse = (json: any) => {
+  public encode = (json: any) => {
     const result: PtbkResponse = {
       ptbk: null,
       auth: this.auth,
@@ -94,7 +94,7 @@ export class Ptbk {
     return result;
   };
 
-  public decodePtbkResponse = (ptbkResponse: PtbkResponse) =>
+  public decode = (ptbkResponse: PtbkResponse) =>
     JSON.parse(
       decodeURIComponent(
         this.decodeDataFromPtbk(ptbkResponse?.ptbk, ptbkResponse?.data)
@@ -103,6 +103,6 @@ export class Ptbk {
 }
 
 const ptbk = new Ptbk(encodePtbk, decodePtbk);
-export const encodePtbkResponse = ptbk.encodePtbkResponse.bind(ptbk);
-export const decodePtbkResponse = ptbk.decodePtbkResponse.bind(ptbk);
+export const encode = ptbk.encode.bind(ptbk);
+export const decode = ptbk.decode.bind(ptbk);
 export default ptbk;

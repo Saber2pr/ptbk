@@ -19,6 +19,6 @@ const myPtbk = Ptbk.create(
   }
 );
 
-const ptbkRes = myPtbk.encodePtbkResponse(data);
+const ptbkRes = myPtbk.encode(data);
 console.log(ptbkRes);
-console.log(myPtbk.decodePtbkResponse(ptbkRes));
+console.log(myPtbk.decode(ptbkRes));
