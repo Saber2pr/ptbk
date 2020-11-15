@@ -3,9 +3,9 @@ import commonjs from 'rollup-plugin-commonjs'
 import {uglify} from 'rollup-plugin-uglify'
 
 export default {
-  input: './lib/core/ptbk.js',
+  input: './lib/test/test.js',
   output: {
-    file: 'build/ptbk.min.js',
+    file: 'build/bundle.js',
     format: 'iife',
     name: 'test'
   },
