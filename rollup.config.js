@@ -1,16 +1,15 @@
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
-import {uglify} from 'rollup-plugin-uglify'
 
 export default {
   input: './lib/test/test.js',
   output: {
     file: 'build/bundle.js',
     format: 'iife',
-    name: 'test'
+    name: 'test',
   },
   watch: {
-    include: 'lib/**'
+    include: 'lib/**',
   },
-  plugins: [resolve(), commonjs(),uglify()]
+  plugins: [resolve(), commonjs()],
 }

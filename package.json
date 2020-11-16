@@ -1,6 +1,6 @@
 {
   "name": "@saber2pr/ptbk",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "pbtkkkkkkkkkk",
   "repository": {
     "type": "git",
@@ -22,7 +22,6 @@
     "rollup": "^1.1.2",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^4.0.0",
-    "rollup-plugin-uglify": "^6.0.4",
     "typescript": "^4.0.5"
   }
 }
