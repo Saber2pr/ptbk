@@ -86,13 +86,16 @@ export class Ptbk {
     return this.encodePtbk([privateUniqid, publicUniqid])
   }
 
-  public encode = (json: any) => {
+  public encode = (data: any) => {
+    if (this.isPtbk(data)) {
+      return data
+    }
     const result: PtbkType = {
       ptbk: null,
       auth: this.auth,
       data: null,
     }
-    const dataStr = encodeURIComponent(JSON.stringify(json))
+    const dataStr = encodeURIComponent(JSON.stringify(data))
     const ptbk = this.createPtbk(dataStr)
     result.ptbk = ptbk
     result.data = this.encodeDataFromPtbk(ptbk, dataStr)
@@ -100,12 +103,16 @@ export class Ptbk {
   }
 
   public decode = (data: any) => {
-    const ptbkData = data as PtbkType
-    return JSON.parse(
-      decodeURIComponent(
-        this.decodeDataFromPtbk(ptbkData?.ptbk, ptbkData?.data)
+    if (this.isPtbk(data)) {
+      const ptbkData = data as PtbkType
+      return JSON.parse(
+        decodeURIComponent(
+          this.decodeDataFromPtbk(ptbkData?.ptbk, ptbkData?.data)
+        )
       )
-    )
+    } else {
+      throw new TypeError('Ptbk: data is not PtbkType!')
+    }
   }
 }
 
