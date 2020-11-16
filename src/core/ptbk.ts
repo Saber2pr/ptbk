@@ -99,12 +99,14 @@ export class Ptbk {
     return result
   }
 
-  public decode = (ptbkResponse: PtbkType) =>
-    JSON.parse(
+  public decode = (data: any) => {
+    const ptbkData = data as PtbkType
+    return JSON.parse(
       decodeURIComponent(
-        this.decodeDataFromPtbk(ptbkResponse?.ptbk, ptbkResponse?.data)
+        this.decodeDataFromPtbk(ptbkData?.ptbk, ptbkData?.data)
       )
     )
+  }
 }
 
 const ptbk = new Ptbk(encodePtbk, decodePtbk)
