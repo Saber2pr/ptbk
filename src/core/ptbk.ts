@@ -95,7 +95,7 @@ export class Ptbk {
       auth: this.auth,
       data: null,
     }
-    const dataStr = encodeURIComponent(JSON.stringify(data))
+    const dataStr = encodeURI(JSON.stringify(data))
     const ptbk = this.createPtbk(dataStr)
     result.ptbk = ptbk
     result.data = this.encodeDataFromPtbk(ptbk, dataStr)
@@ -106,9 +106,7 @@ export class Ptbk {
     if (this.isPtbk(data)) {
       const ptbkData = data as PtbkType
       return JSON.parse(
-        decodeURIComponent(
-          this.decodeDataFromPtbk(ptbkData?.ptbk, ptbkData?.data)
-        )
+        decodeURI(this.decodeDataFromPtbk(ptbkData?.ptbk, ptbkData?.data))
       )
     } else {
       throw new TypeError('Ptbk: data is not PtbkType!')
