@@ -23,8 +23,11 @@ export type PtbkType = {
   data: string
 }
 
-type EncodeFunc = ([privateUniqid, publicUniqid]: [string, string]) => string
-type DecodeFunc = (ptbk: string) => [string, string]
+export type EncodeFunc = ([privateUniqid, publicUniqid]: [
+  string,
+  string
+]) => string
+export type DecodeFunc = (ptbk: string) => [string, string]
 
 export class Ptbk {
   public create(encodePtbk: EncodeFunc, decodePtbk: DecodeFunc) {
