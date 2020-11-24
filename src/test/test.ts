@@ -1,4 +1,4 @@
-import publicDecode from '../../publicDecode.umd'
+import publicDecode from '../../publicPtbkDecode.umd'
 import Ptbk from '..'
 
 const data = {
@@ -20,4 +20,4 @@ const ptbkRes = myPtbk.encode(data)
 console.log(ptbkRes)
 console.log(myPtbk.decode(ptbkRes))
 
-console.log('test', publicDecode(ptbkRes, decodeFunc))
+console.log('test', publicDecode)
