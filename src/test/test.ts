@@ -1,4 +1,4 @@
-import publicDecode from '../../publicDecode'
+import publicDecode from '../../publicDecode.umd'
 import Ptbk from '..'
 
 const data = {
