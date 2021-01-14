@@ -115,9 +115,20 @@ export class Ptbk {
       throw new TypeError('Ptbk: data is not PtbkType!')
     }
   }
-}
 
-const ptbk = new Ptbk(encodePtbk, decodePtbk)
-export const encode = ptbk.encode.bind(ptbk)
-export const decode = ptbk.decode.bind(ptbk)
-export default ptbk
+  // defaults
+  public static instance = new Ptbk(encodePtbk, decodePtbk)
+  public static isPtbk(data: any){
+    return Ptbk.instance.isPtbk(data)
+  }
+  public static encode(data: any){
+    return Ptbk.instance.encode(data)
+  }
+  public static decode(data: any){
+    return Ptbk.instance.decode(data)
+  }
+  public static create(encodePtbk: EncodeFunc, decodePtbk: DecodeFunc){
+    return Ptbk.instance.create(encodePtbk, decodePtbk)
+  }
+}
+export default Ptbk

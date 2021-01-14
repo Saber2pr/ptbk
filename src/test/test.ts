@@ -1,5 +1,4 @@
-import publicDecode from '../../publicPtbkDecode.umd'
-import Ptbk from '..'
+import PTBK from '..'
 
 const data = {
   中文: '妖梦~',
@@ -12,7 +11,7 @@ const decodeFunc = (ptbk): [string, string] => {
   const m = ptbk.length / 2
   return [ptbk.slice(0, m), ptbk.slice(m)]
 }
-const myPtbk = Ptbk.create(([pri, pub]) => {
+const myPtbk = PTBK.create(([pri, pub]) => {
   return pri + pub
 }, decodeFunc)
 
@@ -20,4 +19,5 @@ const ptbkRes = myPtbk.encode(data)
 console.log(ptbkRes)
 console.log(myPtbk.decode(ptbkRes))
 
-console.log('test', publicDecode)
+declare var Ptbk:any
+console.log('test', Ptbk)
