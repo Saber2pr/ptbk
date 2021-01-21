@@ -45,6 +45,11 @@ export class Ptbk {
     private auth = 'bWFkZSBieSAxMDI5OTg1Nzk5QHFxLmNvbQ=='
   ) {}
 
+  private enable = true
+  public setEnable = (enable = true) => {
+    this.enable = enable
+  }
+
   private createPtbkMap = (ptbk: string, encode = false) => {
     const [key, value] = this.decodePtbk(ptbk)
     const ks = Array.from(key)
@@ -90,6 +95,9 @@ export class Ptbk {
   }
 
   public encode = (data: any) => {
+    if(!this.enable){
+      return data
+    }
     if (this.isPtbk(data)) {
       return data
     }
@@ -106,13 +114,16 @@ export class Ptbk {
   }
 
   public decode = (data: any) => {
+    if(!this.enable){
+      return data
+    }
     if (this.isPtbk(data)) {
       const ptbkData = data as PtbkType
       return JSON.parse(
         decodeURI(this.decodeDataFromPtbk(ptbkData?.ptbk, ptbkData?.data))
       )
     } else {
-      throw new TypeError('Ptbk: data is not PtbkType!')
+      return data
     }
   }
 
@@ -126,6 +137,9 @@ export class Ptbk {
   }
   public static decode(data: any){
     return Ptbk.instance.decode(data)
+  }
+  public static setEnable(enable = true){
+    return Ptbk.instance.setEnable(enable)
   }
   public static create(encodePtbk: EncodeFunc, decodePtbk: DecodeFunc){
     return Ptbk.instance.create(encodePtbk, decodePtbk)
