@@ -15,9 +15,9 @@ const myPtbk = PTBK.create(([pri, pub]) => {
   return pri + pub
 }, decodeFunc)
 
-const ptbkRes = myPtbk.encode(data)
+const ptbkRes = myPtbk.encode(data, 'saber2pr')
 console.log(ptbkRes)
-console.log(myPtbk.decode(ptbkRes))
+console.log(myPtbk.decode(ptbkRes, 'saber2pr'))
 
 declare var Ptbk:any
 console.log('test', Ptbk)

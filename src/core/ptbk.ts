@@ -1,3 +1,5 @@
+import md5 from 'md5'
+
 const zip = <A extends PropertyKey, B extends PropertyKey>(as: A[]) => (
   bs: B[]
 ) =>
@@ -21,6 +23,7 @@ export type PtbkType = {
   ptbk: string
   auth: string
   data: string
+  secret?: string
 }
 
 export type EncodeFunc = ([privateUniqid, publicUniqid]: [
@@ -43,7 +46,7 @@ export class Ptbk {
     private encodePtbk: EncodeFunc,
     private decodePtbk: DecodeFunc,
     private auth = 'bWFkZSBieSAxMDI5OTg1Nzk5QHFxLmNvbQ=='
-  ) {}
+  ) { }
 
   private enable = true
   public setEnable = (enable = true) => {
@@ -79,7 +82,7 @@ export class Ptbk {
     const arr = privateUniqid
     const arrLen = arr.length
     const tmp = []
-    for (;;) {
+    for (; ;) {
       tmp.push(arr[Math.floor(Math.random() * arrLen)])
       const set = Array.from(new Set(tmp))
       if (set.length === num) {
@@ -94,8 +97,8 @@ export class Ptbk {
     return this.encodePtbk([privateUniqid, publicUniqid])
   }
 
-  public encode = (data: any) => {
-    if(!this.enable){
+  public encode = (data: any, input?: string) => {
+    if (!this.enable) {
       return data
     }
     if (this.isPtbk(data)) {
@@ -105,6 +108,7 @@ export class Ptbk {
       ptbk: null,
       auth: this.auth,
       data: null,
+      secret: input ? md5(input) : null
     }
     const dataStr = encodeURI(JSON.stringify(data))
     const ptbk = this.createPtbk(dataStr)
@@ -113,12 +117,18 @@ export class Ptbk {
     return result
   }
 
-  public decode = (data: any) => {
-    if(!this.enable){
+  public decode = (data: any, input?: string) => {
+    if (!this.enable) {
       return data
     }
     if (this.isPtbk(data)) {
       const ptbkData = data as PtbkType
+      if (ptbkData.secret) {
+        if(!input) throw new Error('secret need input!')
+        if (md5(input) !== ptbkData.secret) {
+          throw new Error('input missmatch with secret!')
+        }
+      }
       return JSON.parse(
         decodeURI(this.decodeDataFromPtbk(ptbkData?.ptbk, ptbkData?.data))
       )
@@ -129,19 +139,19 @@ export class Ptbk {
 
   // defaults
   public static instance = new Ptbk(encodePtbk, decodePtbk)
-  public static isPtbk(data: any){
+  public static isPtbk(data: any) {
     return Ptbk.instance.isPtbk(data)
   }
-  public static encode(data: any){
-    return Ptbk.instance.encode(data)
+  public static encode(data: any, input?: string) {
+    return Ptbk.instance.encode(data, input)
   }
-  public static decode(data: any){
-    return Ptbk.instance.decode(data)
+  public static decode(data: any, input?: string) {
+    return Ptbk.instance.decode(data, input)
   }
-  public static setEnable(enable = true){
+  public static setEnable(enable = true) {
     return Ptbk.instance.setEnable(enable)
   }
-  public static create(encodePtbk: EncodeFunc, decodePtbk: DecodeFunc){
+  public static create(encodePtbk: EncodeFunc, decodePtbk: DecodeFunc) {
     return Ptbk.instance.create(encodePtbk, decodePtbk)
   }
 }
